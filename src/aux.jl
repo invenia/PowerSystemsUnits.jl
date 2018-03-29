@@ -5,6 +5,7 @@ using Base.Dates
 
 export round, mean, asqtype, ustrip, fustrip
 
+# Helper functions
 """
     round(x::AbstractArray{<:Unitful.Quantity}, r::Int)
     round{T<:Unitful.Quantity}(x::T, r::Int)
@@ -29,8 +30,8 @@ as they are treated separately.
 
 """
 asqtype{T<:Unitful.Units}(x::T) = typeof(1.0*x)
-#ustrip{T<:Unitful.Quantity}(x::DataArrays.DataArray{T}) = map(t -> ustrip(t), x)
 
+# Functions to work with Missings
 """
 
     ustrip(x::Missings.Missing) = x
@@ -39,6 +40,11 @@ Extends the unitful ustrip function to work with Missings.Missings
 
 """
 ustrip(x::Missings.Missing) = x
+
+UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
+
+*{T<:Unitful.FreeUnits}(y::Missings.Missing, x::T) = y
+
 
 """
     fustrip{T<:Any}(x::Array{T}) = map(t -> ustrip(t), x)
