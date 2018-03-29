@@ -3,7 +3,7 @@ import Base: round, mean, *, convert
 using Missings
 using Base.Dates
 
-export round, mean, asqtype, ustrip, fustrip
+export round, mean, asqtype, ustrip, fustrip, UnitfulMissing
 
 # Helper functions
 """
