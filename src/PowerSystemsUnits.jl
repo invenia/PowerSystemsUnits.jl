@@ -1,7 +1,7 @@
 __precompile__()
 module PowerSystemsUnits
 
-import Unitful
+using Unitful
 using Unitful: @unit, @derived_dimension, @dimension, @refunit, @u_str
 import Unitful: ustrip, uconvert, Quantity, unit, W, hr, J, 𝐋, 𝐌, 𝐓
 

@@ -1,60 +1,46 @@
-import Base: round, mean, *, convert
-
+using Compat.Dates
 using Missings
-using Base.Dates
+
+import Base: *, convert, round
+import Compat.Statistics: mean
 
 export round, mean, asqtype, ustrip, fustrip, UnitfulMissing
 
 # Helper functions
-"""
-    round(x::AbstractArray{<:Unitful.Quantity}, r::Int)
-    round{T<:Unitful.Quantity}(x::T, r::Int)
-
-Extends the round operation to work with Arrays of Uniful quantities.
-"""
 round(x::AbstractArray{<:Quantity}, r::Int) = round(ustrip(x), r) * unit(eltype(x))
-round{T<:Quantity}(x::T, r::Int) = round(ustrip(x), r) * unit(x)
+round(x::T, r::Int) where {T<:Quantity} = round(ustrip(x), r) * unit(x)
 
-"""
-    mean(x::AbstractArray{<:Unitful.Quantity}, r::Int) = mean(ustrip(x), r) * unit(eltype(x))
-
-Extends the mean operation to work with Uniful quantities.
-"""
 mean(x::AbstractArray{<:Quantity}, r::Int) = mean(ustrip(x), r) * unit(eltype(x))
 
 """
-    asqtype{T<:Unitful.Units}(x::T) = typeof(1.0*x)
+    asqtype(x::T) where {T<:Unitful.Units} -> Type
 
 A helper function to convert from the "dimensions" of a Unitful quantity to the "quantities",
 as they are treated separately.
-
 """
-asqtype{T<:Unitful.Units}(x::T) = typeof(1.0*x)
+asqtype(x::T) where {T<:Unitful.Units} = typeof(1.0*x)
 
 # Functions to work with Missings
 """
 
-    ustrip(x::Missings.Missing) = x
+    ustrip(x::Missings.Missing) = Missings.missing
 
 Extends the unitful ustrip function to work with Missings.Missings
-
 """
 ustrip(x::Missings.Missing) = x
 
-UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
 
-*{T<:Unitful.FreeUnits}(y::Missings.Missing, x::T) = y
+const UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
+
+*(y::Missings.Missing, x::T) where {T<:Unitful.FreeUnits} = y
 
 
 """
-    fustrip{T<:Any}(x::Array{T}) = map(t -> ustrip(t), x)
+    fustrip(x::Array{T}) where {T<:Any} = Array
 
 Operation to strip the units an Parametric Array{T} Type. Needed for operating on DataFrames?
-
 """
-fustrip{T<:Any}(x::Array{T}) = map(t -> ustrip(t), x)
-
-*(x::Unitful.Units, y::Number) = *(y, x)
+fustrip(x::Array{T}) where {T<:Any} = map(t -> ustrip(t), x)
 
 # Handle working with `Period`s
 *(x::Unitful.Units, y::Period) = *(y, x)
