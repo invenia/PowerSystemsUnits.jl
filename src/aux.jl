@@ -3,8 +3,8 @@ using Missings
 
 import Base: *, convert, round
 import Compat.Statistics: mean
+import Unitful: ustrip
 
-export round, mean, asqtype, ustrip, fustrip, UnitfulMissing
 
 # Helper functions
 round(x::AbstractArray{<:Quantity}, r::Int) = round(ustrip(x), r) * unit(eltype(x))
@@ -20,20 +20,12 @@ as they are treated separately.
 """
 asqtype(x::T) where {T<:Unitful.Units} = typeof(1.0*x)
 
-# Functions to work with Missings
-"""
 
-    ustrip(x::Missings.Missing) = Missings.missing
-
-Extends the unitful ustrip function to work with Missings.Missings
-"""
-ustrip(x::Missings.Missing) = x
-
-
+# Handle working with  Missings
 const UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
 
 *(y::Missings.Missing, x::T) where {T<:Unitful.FreeUnits} = y
-
+ustrip(x::Missings.Missing) = x
 
 """
     fustrip(x::Array{T}) where {T<:Any} = Array
@@ -41,6 +33,7 @@ const UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
 Operation to strip the units an Parametric Array{T} Type. Needed for operating on DataFrames?
 """
 fustrip(x::Array{T}) where {T<:Any} = map(t -> ustrip(t), x)
+
 
 # Handle working with `Period`s
 *(x::Unitful.Units, y::Period) = *(y, x)
@@ -50,8 +43,6 @@ function convert(a::Unitful.Units, x::Period)
     uconvert(a, (sec)u"s")
 end
 
-#@dimension USD "USD" Dollar
-#@refunit 💵 "💵" Dollar USD false
-
+# Methods to drop
 # Exist to test that (offsets)u"hr" should work the same way
 dt2umin(t::AbstractArray{Dates.Minute}) = Dates.value.(t).*u"minute"
