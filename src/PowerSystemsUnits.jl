@@ -20,7 +20,7 @@ export asqtype, fustrip, UnitfulMissing
 @dimension Money "Money" Currency
 @refunit USD "USD" Currency Money false
 
-include("aux.jl")
+include("utils.jl")
 
 # Pre compilation currently causes issues with seg faults in modules that use this one
 # # Some gymnastics needed to get this to work at run-time.
