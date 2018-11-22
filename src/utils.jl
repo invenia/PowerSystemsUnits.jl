@@ -1,7 +1,10 @@
 using Compat.Dates
 using Missings
 
-import Base: *, convert, round
+using Unitful: unit
+
+import Base: *, convert
+import Compat: round
 import Compat.Statistics: mean
 import Unitful: ustrip
 
