@@ -20,6 +20,10 @@ export asqtype, fustrip, UnitfulMissing
 @dimension Money "Money" Currency
 @refunit USD "USD" Currency Money false
 
+# Monetary and Power Units
+@derived_dimension MoneyPerPowerHour Money*𝐋^-2*𝐌^-1*𝐓^2
+@unit USDPerMWh "USDPerMWh" DollarPerMegaWattHour USD/(1000000*Wh) false 
+
 include("utils.jl")
 
 # Pre compilation currently causes issues with seg faults in modules that use this one
