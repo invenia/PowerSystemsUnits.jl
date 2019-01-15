@@ -2,8 +2,11 @@ using Compat.Dates
 using Compat.Test
 using PowerSystemsUnits
 
+Unitful.register(PowerSystemsUnits)
+
 using Unitful: @u_str
 using Unitful
+import Unitful: J, W, hr
 
 @testset "PowerSystemsUnits.jl" begin
     @testset "Units" begin
@@ -14,6 +17,11 @@ using Unitful
             x = PowerSystemsUnits.dt2umin(Dates.Minute.(offsets))
             y = (offsets)u"minute"
             @test x == y
+        end
+        @testset "Power Related Unit" begin
+            @test 1u"Wh" == 1u"W*hr"
+            @test 1u"VARh" == 3600u"J"
+            @test 1u"USDPerMWh" == 1u"USD/(MW*hr)"
         end
     end
 end
