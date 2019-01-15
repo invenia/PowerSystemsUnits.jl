@@ -2,11 +2,11 @@ using Compat.Dates
 using Compat.Test
 using PowerSystemsUnits
 
-Unitful.register(PowerSystemsUnits)
-
 using Unitful: @u_str
 using Unitful
 import Unitful: J, W, hr
+
+Unitful.register(PowerSystemsUnits)
 
 @testset "PowerSystemsUnits.jl" begin
     @testset "Units" begin
