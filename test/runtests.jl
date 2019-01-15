@@ -3,7 +3,7 @@ using Compat.Test
 using PowerSystemsUnits
 
 using Unitful: @u_str
-
+using Unitful
 
 @testset "PowerSystemsUnits.jl" begin
     @testset "Units" begin
