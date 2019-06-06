@@ -1,6 +1,3 @@
-__precompile__(false)
-# Pre compilation currently causes issues with seg faults in modules that use this one
-# https://github.com/ajkeller34/Unitful.jl/issues/193
 module PowerSystemsUnits
 
 import Unitful
@@ -22,19 +19,18 @@ export asqtype, fustrip, UnitfulMissing
 
 # Monetary and Power Units
 @derived_dimension MoneyPerPowerHour Money*𝐋^-2*𝐌^-1*𝐓^2
-@unit USDPerMWh "USDPerMWh" DollarPerMegaWattHour USD/(1000000*Wh) false 
+@unit USDPerMWh "USDPerMWh" DollarPerMegaWattHour USD/(1000000*Wh) false
 
 include("utils.jl")
 
-# Pre compilation currently causes issues with seg faults in modules that use this one
-# # Some gymnastics needed to get this to work at run-time.
-# # Sourced from https://github.com/ajkeller34/UnitfulUS.jl
-# const localunits = Unitful.basefactors
-# const localpromotion = Unitful.promotion
-# function __init__()
-#     merge!(Unitful.basefactors, localunits)
-#     merge!(Unitful.promotion, localpromotion) # only if you've used @dimension
-#     Unitful.register(PowerSystemsUnits)
-# end
+# Some gymnastics needed to get this to work at run-time.
+# Sourced from https://github.com/ajkeller34/UnitfulUS.jl
+const localunits = Unitful.basefactors
+const localpromotion = Unitful.promotion
+function __init__()
+    merge!(Unitful.basefactors, localunits)
+    merge!(Unitful.promotion, localpromotion)  # only if you've used @dimension
+    Unitful.register(PowerSystemsUnits)
+end
 
 end
