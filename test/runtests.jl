@@ -1,12 +1,9 @@
-using Compat.Dates
-using Compat.Test
+using Dates
+using Test
 using PowerSystemsUnits
 
-using Unitful: @u_str
-using Unitful
-import Unitful: J, W, hr
+using Unitful: Unitful, @u_str, J, W, hr
 
-Unitful.register(PowerSystemsUnits)
 
 @testset "PowerSystemsUnits.jl" begin
     @testset "Units" begin

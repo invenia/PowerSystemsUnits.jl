@@ -1,12 +1,12 @@
-using Compat.Dates
-using Missings
+using Dates
+using Unitful: unit, ustrip
 
-using Unitful: unit
+import Base: *, convert, round
+import Statistics: mean
 
-import Base: *, convert
-import Compat: round
-import Compat.Statistics: mean
-import Unitful: ustrip
+
+# Handle working with Missings
+const UnitfulMissing = Union{<:Unitful.Quantity, Missing}
 
 
 # Helper functions
@@ -22,13 +22,6 @@ A helper function to convert from the "dimensions" of a Unitful quantity to the 
 as they are treated separately.
 """
 asqtype(x::T) where {T<:Unitful.Units} = typeof(1.0*x)
-
-
-# Handle working with  Missings
-const UnitfulMissing = Union{<:Unitful.Quantity, Missings.Missing}
-
-*(y::Missings.Missing, x::T) where {T<:Unitful.FreeUnits} = y
-ustrip(x::Missings.Missing) = x
 
 """
     fustrip(x::Array{T}) where {T<:Any} = Array
