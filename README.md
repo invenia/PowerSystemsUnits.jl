@@ -1,7 +1,6 @@
 # PowerSystemsUnits
 
-[![Build Status](https://travis-ci.com/invenia/PowerSystemsUnits.jl.svg?branch=master)](https://travis-ci.com/invenia/PowerSystemsUnits.jl)
-[![Build Status](https://ci.appveyor.com/api/projects/status/github/invenia/PowerSystemsUnits.jl?svg=true)](https://ci.appveyor.com/project/invenia/PowerSystemsUnits-jl)
+[![CI](https://github.com/Invenia/PowerSystemsUnits.jl/workflows/CI/badge.svg)](https://github.com/Invenia/PowerSystemsUnits.jl/actions?query=workflow%3ACI)
 [![CodeCov](https://codecov.io/gh/invenia/PowerSystemsUnits.jl/branch/master/graph/badge.svg)](https://codecov.io/gh/invenia/PowerSystemsUnits.jl)
 
 
