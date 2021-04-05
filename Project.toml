@@ -2,7 +2,7 @@ name = "PowerSystemsUnits"
 uuid = "c279aad7-7dc9-58d3-995b-109d3f5deb94"
 license = "MIT"
 author = "Invenia Technical Computing"
-version = "0.2.0"
+version = "0.2.1"
 
 [deps]
 Dates = "ade2ca70-3891-5945-98fb-dc099432e06a"
